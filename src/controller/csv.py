@@ -20,8 +20,6 @@ def post():
         collection_name = CollectionService.create_collection(data)
         response = {"id": collection_name}
         return jsonify(response), 201, {'Content-Type': 'application/json'}
-    except CustomException as e:
-        return Helper.exception_to_json_response(e)
     except Exception as e:
         return Helper.exception_to_json_response(e)
 
@@ -36,8 +34,6 @@ def put(collection_name: str):
             collection_name, data)
         response = {"id": collection_name, "count": count}
         return jsonify(response), 200, {'Content-Type': 'application/json'}
-    except CustomException as e:
-        return Helper.exception_to_json_response(e)
     except Exception as e:
         return Helper.exception_to_json_response(e)
 
