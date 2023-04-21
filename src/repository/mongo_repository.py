@@ -1,6 +1,6 @@
 import uuid
 from bson import ObjectId
-from pymongo import MongoClient
+from pymongo import MongoClient, InsertOne, errors
 from datetime import datetime
 
 
@@ -31,6 +31,19 @@ class MongoRepository:
         document['updatedAt'] = timestamp
         result = collection.insert_one(document)
         return self.format_document(self.find_by_id(collection_name, result.inserted_id))
+
+    def insert_many(self, collection_name: str, documents: list):
+        collection = self.db[collection_name]
+        timestamp = datetime.utcnow()
+
+        for document in documents:
+            document['createdAt'] = timestamp
+            document['updatedAt'] = timestamp
+
+        operations = [InsertOne(document) for document in documents]
+
+        result = collection.bulk_write(operations)
+        return result.inserted_count
 
     def update_patch(self, collection_name, query, data):
         collection = self.db[collection_name]

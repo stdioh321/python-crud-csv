@@ -9,7 +9,7 @@ class CollectionService:
     repo = MongoRepository(MONGO_URI)
 
     @staticmethod
-    def create_collection(name, data):
+    def create_collection(data):
         return CollectionService.repo.create_collection(data)
 
     @staticmethod
@@ -35,3 +35,8 @@ class CollectionService:
     @staticmethod
     def delete(collection_name, query):
         return CollectionService.repo.delete(collection_name, query)
+
+    @staticmethod
+    def clear_and_insert_many(collection_name, documents: list):
+        CollectionService.repo.delete(collection_name, {})
+        return CollectionService.repo.insert_many(collection_name, documents)
