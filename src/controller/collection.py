@@ -1,8 +1,8 @@
 from flask import request, jsonify, make_response
-from src.service.collection import collection_service
+from src.service.collection import CollectionService
 from flask import Blueprint
 
-collection_bp = Blueprint('collection_bp', __name__)
+collection_bp = Blueprint('collection_bp', __name__ )
 
 header_json = {'Content-Type': 'application/json'}
 
@@ -11,7 +11,7 @@ header_json = {'Content-Type': 'application/json'}
 def get(collection_name):
     query = dict(request.args)
 
-    response = collection_service.find(collection_name, query)
+    response = CollectionService.find(collection_name, query)
     if len(response) < 1:
         return make_response(jsonify(''), 404)
 
@@ -22,7 +22,7 @@ def get(collection_name):
 def post(collection_name):
     data = {key: str(value) for key, value in request.json.items()}
 
-    result = collection_service.insert(collection_name, data)
+    result = CollectionService.insert(collection_name, data)
     return jsonify(result), 201, header_json
 
 
@@ -31,7 +31,7 @@ def patch_put(collection_name):
     data = {key: str(value) for key, value in request.json.items()}
     query = dict(request.args)
 
-    result = collection_service.update_patch(collection_name, query, data)
+    result = CollectionService.update_patch(collection_name, query, data)
     return jsonify({"count": result}), 200, header_json
 
 
@@ -39,5 +39,5 @@ def patch_put(collection_name):
 def delete(collection_name):
     query = dict(request.args)
 
-    result = collection_service.delete(collection_name, query)
+    result = CollectionService.delete(collection_name, query)
     return jsonify({"count": result}), 200, header_json
