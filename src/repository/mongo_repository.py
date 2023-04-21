@@ -9,6 +9,9 @@ class MongoRepository:
         self.client = MongoClient(uri)
         self.db = self.client.get_database()
 
+    def collection_exists(self, collection_name):
+        return collection_name in self.db.list_collection_names()
+
     def create_collection(self, data):
         collection_name = str(uuid.uuid4())
         self.db[collection_name].insert_many(data)

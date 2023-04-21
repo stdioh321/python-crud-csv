@@ -2,7 +2,7 @@ import traceback
 
 
 class CustomException(Exception):
-    def __init__(self, message, display_message=None, status_code=500, errors=None):
+    def __init__(self, message='Server error', display_message=None, status_code=500, errors=None):
         self.message = message
         self.display_message = display_message or message
         self.status_code = status_code
