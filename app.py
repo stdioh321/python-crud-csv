@@ -12,5 +12,12 @@ app = Flask(__name__)
 app.register_blueprint(csv_bp, url_prefix='/api')
 app.register_blueprint(collection_bp, url_prefix='/api')
 
+
+@app.route('/health')
+@app.route('/')
+def health():
+    return 'ok', 200
+
+
 if __name__ == '__main__':
     app.run(port=PORT, host="0.0.0.0")
