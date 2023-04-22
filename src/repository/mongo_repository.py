@@ -24,6 +24,7 @@ class MongoRepository:
     def find(self, collection_name: str, query: dict):
         db = self.client.get_database()
         collection = db[collection_name]
+        self.id_to_object_id(query)
         results = collection.find(query)
         return [self.format_document(result) for result in results]
 
