@@ -12,7 +12,15 @@ class MongoRepository:
     def collection_exists(self, collection_name):
         return collection_name in self.db.list_collection_names()
 
-    def create_collection(self, data):
+    def create_collection(self, name=None):
+        if name is None:
+            name = str(uuid.uuid4())
+        if self.collection_exists(name):
+            raise errors.DuplicateKeyError("Collection already exists")
+        self.db.create_collection(name)
+        return name
+
+    def create_collection_with_data(self, data):
         collection_name = str(uuid.uuid4())
         self.db[collection_name].insert_many(data)
         return collection_name
@@ -41,13 +49,11 @@ class MongoRepository:
         timestamp = datetime.utcnow()
 
         for document in documents:
-            document['createdAt'] = timestamp
-            document['updatedAt'] = timestamp
+            document.setdefault('createdAt', timestamp)
+            document.setdefault('updatedAt', timestamp)
 
-        operations = [InsertOne(document) for document in documents]
-
-        result = collection.bulk_write(operations)
-        return result.inserted_count
+        result = collection.insert_many(documents)
+        return len(result.inserted_ids)
 
     def update_patch(self, collection_name, query, data):
         collection = self.db[collection_name]

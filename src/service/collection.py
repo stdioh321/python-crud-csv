@@ -16,7 +16,7 @@ class CollectionService:
 
     @staticmethod
     def create_collection(data):
-        return CollectionService.repo.create_collection(data)
+        return CollectionService.repo.create_collection_with_data(data)
 
     @staticmethod
     def clear_and_insert_many(collection_name, documents: list):
