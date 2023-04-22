@@ -37,14 +37,6 @@ def put(collection_name: str):
         return Helper.exception_to_json_response(e)
 
 
-def csv_array_to_dict(csv_data):
-    headers = csv_data[0].split(',')
-    timestamp = datetime.utcnow()
-    data = [dict(zip(headers, row.split(',')), createdAt=timestamp,
-                 updatedAt=timestamp) for row in csv_data[1:]]
-    return data
-
-
 def validate_csv_file(csv_file):
     if not csv_file:
         raise CustomException("No CSV file provided", status_code=400)
@@ -74,5 +66,7 @@ def csv_array_to_dict(csv_file):
     delimiter = ',' if ',' in contents[:100] else ';'
     rows = csv.reader(contents.splitlines(), delimiter=delimiter)
     headers = next(rows)
-    data = [dict(zip(headers, row)) for row in rows]
+    timestamp = datetime.utcnow()
+    data = [dict(zip(headers, row), createdAt=timestamp,
+                 updatedAt=timestamp) for row in rows]
     return data
