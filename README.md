@@ -2,6 +2,10 @@
 
 This is a Python application built with Flask and PyMongo that allows you to upload CSV files and store the data in a MongoDB database. The name of the collection will be a random UUID generated when you upload the file. You can then use the CRUD routes to manage the data in the collection.
 
+# Demo
+> Base URL: https://python-crud-csv.onrender.com
+>
+> Swagger: https://python-crud-csv.onrender.com/apidocs
 # Requirements
 1. Python 3
 2. docker
