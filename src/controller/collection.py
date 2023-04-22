@@ -12,8 +12,7 @@ header_json = {'Content-Type': 'application/json'}
 @collection_bp.route('/collection/<string:collection_name>', methods=['GET'])
 def get(collection_name):
     try:
-        query = dict(request.args)
-
+        query = Helper.parse_query(dict(request.args))
         response = CollectionService.find(collection_name, query)
         if len(response) < 1:
             raise CustomException('No items found', status_code=404)
@@ -38,9 +37,12 @@ def post(collection_name):
 def patch_put(collection_name):
     try:
         data = {key: str(value) for key, value in request.json.items()}
-        query = dict(request.args)
+        query = Helper.parse_query(dict(request.args))
 
         result = CollectionService.update_patch(collection_name, query, data)
+        if result < 1:
+            raise CustomException('No items updated', status_code=404)
+
         return jsonify({"count": result}), 200, header_json
     except Exception as e:
         return Helper.exception_to_json_response(e)
@@ -49,9 +51,11 @@ def patch_put(collection_name):
 @collection_bp.route('/collection/<string:collection_name>', methods=['DELETE'])
 def delete(collection_name):
     try:
-        query = dict(request.args)
+        query = Helper.parse_query(dict(request.args))
 
         result = CollectionService.delete(collection_name, query)
+        if result < 1:
+            raise CustomException('No items deleted', status_code=404)
         return jsonify({"count": result}), 200, header_json
     except Exception as e:
         return Helper.exception_to_json_response(e)
