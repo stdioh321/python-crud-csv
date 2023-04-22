@@ -5,9 +5,7 @@ from src.controller.helper import Helper
 from src.exceptions.custom_exception import CustomException
 
 collection_bp = Blueprint('collection_bp', __name__)
-
 header_json = {'Content-Type': 'application/json'}
-
 
 @collection_bp.route('/collection/<string:collection_name>', methods=['GET'])
 def get(collection_name):
