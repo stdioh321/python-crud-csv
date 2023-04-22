@@ -46,6 +46,9 @@ class CollectionService:
 
     @staticmethod
     def update_put(collection_name, query, data):
+        if len(data) < 1:
+            raise CustomException('No data provided', status_code=400)
+
         CollectionService.check_collection(collection_name)
         return CollectionService.repo.update_put(collection_name, query, data)
 
@@ -57,4 +60,5 @@ class CollectionService:
     @staticmethod
     def check_collection(collection_name: str):
         if not CollectionService.collection_exists(collection_name):
-            raise CustomException(f'Collection \'{collection_name}\' not found', status_code=404)
+            raise CustomException(
+                f'Collection \'{collection_name}\' not found', status_code=404)

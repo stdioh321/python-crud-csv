@@ -1,3 +1,4 @@
 Flask
 load_dotenv
 pymongo
+flasgger

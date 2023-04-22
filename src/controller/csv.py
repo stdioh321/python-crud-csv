@@ -14,6 +14,29 @@ ALLOWED_DELIMITERS = [",", ";"]
 
 @csv_bp.route('/csv', methods=['POST'])
 def post():
+    """
+    Creates a new MongoDB collection with a random UUID name from uploaded CSV file.
+    ---
+    parameters:
+      - name: file
+        in: formData
+        type: file
+        required: true
+        description: The CSV file to upload.
+    responses:
+      201:
+        description: Created new MongoDB collection with UUID name.
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The UUID name of the new MongoDB collection.
+      400:
+        description: Something is wrong with the uploaded CSV file.
+      500:
+        description: Something went wrong on the server side.
+    """
     try:
         csv_file = request.files['file']
         data = csv_array_to_dict(csv_file)
@@ -26,6 +49,40 @@ def post():
 
 @csv_bp.route('/csv/<collection_name>', methods=['PUT'])
 def put(collection_name: str):
+    """
+    Uploads a CSV file, clears the specified collection, and inserts the data from the CSV.
+    ---
+    parameters:
+      - name: collection_name
+        in: path
+        type: string
+        required: true
+        description: The name of the MongoDB collection to upload the CSV data to.
+        default: 4aeb8f09-7786-4f16-9e62-3af8c7249130
+      - name: file
+        in: formData
+        type: file
+        required: true
+        description: The CSV file to upload.
+    responses:
+      200:
+        description: Success. Returns the UUID of the collection and the number of items inserted.
+        schema:
+          type: object
+          properties:
+            id:
+              type: string
+              description: The UUID of the MongoDB collection.
+            count:
+              type: integer
+              description: The number of items inserted.
+      400:
+        description: Something is wrong with the uploaded CSV file.
+      404:
+        description: The specified MongoDB collection was not found.
+      500:
+        description: Something went wrong on the server side.
+    """
     try:
         csv_file = request.files['file']
         data = csv_array_to_dict(csv_file)
