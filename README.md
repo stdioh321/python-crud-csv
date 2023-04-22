@@ -62,6 +62,15 @@ Handles CRUD of the collections
 
 Returns JSON data from the specified collection filtered by the query parameters. All parameters are optional, and the fields and values depend on the collection.
 
+The query params, can use some operators
+```sh
+# field01=>10 - Find if field01 is greater than 10
+# field01=>=10 - Find if field01 is greater or equal to 10
+# field01==10 - Find if field01 is equal 10
+# field01=<10 - Find if field01 is lower than 10
+# field01=<=10 - Find if field01 is lower or equal equal to 10
+# field01=!10 - Find if field01 is different than 10
+```
 - Returns 200 with `[{_id: "objectId", ...dynamic data}]` on success.
 - Returns 404 if the specified collection is not found.
 - Returns 500 if something went wrong.
@@ -78,6 +87,15 @@ Inserts a new document into the specified collection.
 
 Updates documents in the specified collection that match the query parameters.
 
+The query params, can use some operators
+```sh
+# field01=>10 - Find if field01 is greater than 10
+# field01=>=10 - Find if field01 is greater or equal to 10
+# field01==10 - Find if field01 is equal 10
+# field01=<10 - Find if field01 is lower than 10
+# field01=<=10 - Find if field01 is lower or equal equal to 10
+# field01=!10 - Find if field01 is different than 10
+```
 - Returns 200 with `{count: "total items updated"}` on success.
 - Returns 404 if the specified collection is not found.
 - Returns 500 if something went wrong.
@@ -86,6 +104,15 @@ Updates documents in the specified collection that match the query parameters.
 
 Deletes documents from the specified collection that match the query parameters.
 
+The query params, can use some operators
+```sh
+# field01=>10 - Find if field01 is greater than 10
+# field01=>=10 - Find if field01 is greater or equal to 10
+# field01==10 - Find if field01 is equal 10
+# field01=<10 - Find if field01 is lower than 10
+# field01=<=10 - Find if field01 is lower or equal equal to 10
+# field01=!10 - Find if field01 is different than 10
+```
 - Returns 200 with `{count: "total items deleted"}` on success.
 - Returns 404 if the specified collection is not found.
 - Returns 500 if something went wrong.
