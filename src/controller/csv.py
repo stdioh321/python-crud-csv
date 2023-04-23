@@ -103,11 +103,11 @@ def validate_csv_file(csv_file):
 
     try:
         csv_data = csv_file.read().decode('utf-8')
-        dialect = csv.Sniffer().sniff(
-            csv_data[:1024], delimiters=ALLOWED_DELIMITERS)
+        csv_splited = csv_data.splitlines()
+        dialect = csv.Sniffer().sniff(csv_splited[0], delimiters=ALLOWED_DELIMITERS)
         if dialect.delimiter not in ALLOWED_DELIMITERS:
             raise ValueError("Invalid delimiter")
-        reader = csv.reader(csv_data.splitlines(), delimiter=dialect.delimiter)
+        reader = csv.reader(csv_splited, delimiter=dialect.delimiter)
         headers = next(reader)
         if not headers:
             raise ValueError("CSV file must have headers")
