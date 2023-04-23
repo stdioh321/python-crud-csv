@@ -88,7 +88,7 @@
 			"name": "collection",
 			"item": [
 				{
-					"name": "Retrieve all data from collection",
+					"name": "Retrieve all collection names",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -118,7 +118,7 @@
 					"response": []
 				},
 				{
-					"name": "Retrieve all collections",
+					"name": "Retrieve all data from collection",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -256,7 +256,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"age\": \"{{$randomInt}}\"\n}",
+							"raw": "{\n    \"k\": \"{{$randomFullName}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -264,7 +264,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/collection/:collection_name?age=33",
+							"raw": "{{base_url}}/api/collection/:collection_name?b=yoshi3922",
 							"host": [
 								"{{base_url}}"
 							],
@@ -275,8 +275,8 @@
 							],
 							"query": [
 								{
-									"key": "age",
-									"value": "33"
+									"key": "b",
+									"value": "yoshi3922"
 								}
 							],
 							"variable": [
