@@ -11,6 +11,10 @@ class CollectionService:
     repo = MongoRepository(MONGO_URI)
 
     @staticmethod
+    def list_collections():
+        return CollectionService.repo.list_collections()
+
+    @staticmethod
     def collection_exists(collection_name):
         return CollectionService.repo.collection_exists(collection_name)
 

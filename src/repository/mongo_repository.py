@@ -9,6 +9,9 @@ class MongoRepository:
         self.client = MongoClient(uri)
         self.db = self.client.get_database()
 
+    def list_collections(self):
+        return self.db.list_collection_names()
+
     def collection_exists(self, collection_name):
         return collection_name in self.db.list_collection_names()
 

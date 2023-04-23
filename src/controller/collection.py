@@ -8,8 +8,31 @@ collection_bp = Blueprint('collection_bp', __name__)
 header_json = {'Content-Type': 'application/json'}
 
 
+@collection_bp.route('/collection', methods=['GET'])
+def get_collection_names():
+    """
+    Returns JSON data from the specified collection filtered by the query parameters.
+    ---
+    responses:
+      200:
+        description: Success. Returns JSON data with the collection names
+        schema:
+          type: array
+          items:
+            type: string
+      500:
+        description: Something went wrong on the server side.
+    """
+    try:
+        response = CollectionService.list_collections()
+
+        return jsonify(response), 200, header_json
+    except Exception as e:
+        return Helper.exception_to_json_response(e)
+
+
 @collection_bp.route('/collection/<string:collection_name>', methods=['GET'])
-def get(collection_name):
+def get_by_collection(collection_name):
     """
     Returns JSON data from the specified collection filtered by the query parameters.
     ---
