@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "ec1ee59f-44da-4c35-a2ab-4749798a55dc",
+		"name": "Python CSV API",
+		"description": "API for uploading CSV files and creating MongoDB collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "csv",
+			"item": [
+				{
+					"name": "Create a new MongoDB collection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/hdias/Downloads/page.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/csv",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"csv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an existing MongoDB collection",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/hdias/Downloads/copia2.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/csv/:collection_name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"csv",
+								":collection_name"
+							],
+							"variable": [
+								{
+									"key": "collection_name",
+									"value": "{{current_collection_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "collection",
+			"item": [
+				{
+					"name": "Retrieve all data from collection",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/collection",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"collection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve all collections",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/collection/:collection_name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"collection",
+								":collection_name"
+							],
+							"variable": [
+								{
+									"key": "collection_name",
+									"value": "{{current_collection_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve data from collection using filters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/collection/:collection_name?b=Mario9&e=Mario&k=Mario",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"collection",
+								":collection_name"
+							],
+							"query": [
+								{
+									"key": "b",
+									"value": "Mario9"
+								},
+								{
+									"key": "e",
+									"value": "Mario"
+								},
+								{
+									"key": "k",
+									"value": "Mario"
+								}
+							],
+							"variable": [
+								{
+									"key": "collection_name",
+									"value": "{{current_collection_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert single document on collection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"yoshi\",\n    \"email\":\"yoshi@test.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/collection/:collection_name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"collection",
+								":collection_name"
+							],
+							"variable": [
+								{
+									"key": "collection_name",
+									"value": "{{current_collection_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update document(s) on collection",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"age\": \"{{$randomInt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/collection/:collection_name?age=33",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"collection",
+								":collection_name"
+							],
+							"query": [
+								{
+									"key": "age",
+									"value": "33"
+								}
+							],
+							"variable": [
+								{
+									"key": "collection_name",
+									"value": "{{current_collection_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete document(s) on collection",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/collection/:collection_name?name=yoshi",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"collection",
+								":collection_name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "yoshi"
+								}
+							],
+							"variable": [
+								{
+									"key": "collection_name",
+									"value": "{{current_collection_name}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5050"
+		},
+		{
+			"key": "base_url",
+			"value": "https://python-crud-csv.onrender.com",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "current_collection_name",
+			"value": "5b8819f3-0198-424e-852c-a6d1d0910031"
+		}
+	]
+}
