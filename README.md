@@ -21,6 +21,8 @@ Clone the project and navigate to the project's directory:
 ```sh
 git clone https://github.com/stdioh321/python-crud-csv.git
 cd python-crud-csv
+cp .env.example .env
+# Fill the envs for .env
 ```
 
 # Run
